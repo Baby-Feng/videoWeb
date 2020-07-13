@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <script src="../layui/layui.js"></script>
+    <script src="../js/public_function.js"></script>
+    <base href="/">
+    <script>
+        var interestLimited = 10;
+        //设置最多保存10个兴趣
+
+        function test(object) {
+            //变色
+            var status = object.getAttribute("value");
+            var interest = document.getElementById("interestSum");
+            var interestSum = parseInt(interest.value);
+            if(status == '1'){
+                //取消
+                if(interestSum -1 < 0) alert("至少选择1个兴趣！");
+                else{
+                    object.setAttribute("class","layui-btn layui-btn-primary layui-btn-radius");
+                    object.setAttribute("value","0");
+                    interest.setAttribute("value",interestSum-1);
+                }
+
+            }else if(status == '0'){
+                //确认
+                if(interestSum+1 > interestLimited) alert("至多选择10个兴趣！");
+                else{
+                    object.setAttribute("class","layui-btn layui-btn-radius");
+                    object.setAttribute("value","1");
+                    interest.setAttribute("value",interestSum+1);
+                }
+
+            }
+        }
+
+        function addLabel() {
+            var input = document.getElementById("inp");
+            var inp = input.value;
+            var interest =document.getElementById("interestSum");
+            var interestSum = parseInt(interest.value);
+            if(interestSum+1 > interestLimited){
+                alert("超出限制！")
+            }else{
+                if (inp.length>0){
+                    var selected = document.getElementById("selected-list");
+                    var li = document.createElement("li");
+                    li.setAttribute("class","selected");
+                    li.innerHTML = '<div>'+inp+'</div>\n' +
+                        '                        <button type="button" onclick="deleteLabel(this)" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe67e;</i></button>';
+                    selected.appendChild(li);
+                    interest.setAttribute("value",interestSum+1);
+                    input.value = "";
+                }else{
+                    alert("标签为空！");
+                }
+            }
+
+
+
+        }
+        function deleteLabel(object) {
+            var interest =document.getElementById("interestSum");
+            var interestSum = parseInt(interest.value);
+            var selected = document.getElementById("selected-list");
+            var nowLi = object.parentNode;
+            selected.removeChild(nowLi);
+            interest.setAttribute("value",interestSum-1);
+        }
+
+        function sub() {
+            var username = getContent("username");
+            if(!username){
+                index();
+                alert("请先登录！");
+                //关闭当前页面
+            }
+            var interestSum = parseInt(document.getElementById("interestSum").value);
+            var interestStr = "";
+            if(interestSum < 1){
+                alert("最少添加1个标签！")
+            }else{
+                //提交
+                var liList = document.getElementById("selected-list").children;
+                for(var i=0;i<liList.length;++i){
+                    var interest = liList[i].children[0].innerText;
+                    if(i>0) interestStr += "-";
+                    interestStr += interest;
+                }
+                //提交请求
+                var f=document.createElement("form");
+                var username = document.getElementById("username").value;
+                f.action = '/updateUserLabel';
+                f.target = '_parent';//关键
+                f.method = 'post';
+                f.innerHTML='<input type="hidden" name="username" value="'+username+'">'+
+                    '<input type="hidden" name="label" value="'+interestStr+'">';
+                document.body.appendChild(f);
+                f.submit();
+            }
+        }
+    </script>
+    <style>
+        .panel{
+            width: 800px;
+            height: max-content;
+            margin: 50px auto 0 auto;
+        }
+        .add-label{
+        }
+        label{
+            width: 160px;
+            display: block;
+            height: max-content;
+            float: left;
+            text-align: right;
+            padding-top: 8px;
+            font-size: 15px;
+        }
+        .add-label input{
+            margin-left: 20px;
+            padding-left: 10px;
+            width: 150px;
+            height: 35px;
+            font-size: 15px;
+            color: #757575;
+            border-radius: 3px 0 0 3px;
+            border: #009688 solid 1px;
+            float: left;
+            margin-right: -1px;
+        }
+        .add-label button{
+            height: 37px;
+            /*margin-top: -1px;*/
+            margin-bottom: 2px ;
+        }
+        .user-label{
+            margin-top: 20px;
+            height: 200px;
+        }
+        .now-label{
+            float: left;
+            height: 100%;
+            width: 160px;
+            display: block;
+            text-align: right;
+            padding-top: 8px;
+            font-size: 15px;
+        }
+        .fe{
+            float: left;
+            width: 70%;
+            height: 100%;
+        }
+
+        .selected div{
+            margin-left: 10px;
+            width: max-content;
+            height: 25px;
+            font-size: 15px;
+            color: #757575;
+            padding: 7px 10px 3px 10px;
+            border-radius: 3px 0 0 3px;
+            border: #009688 solid 1px;
+            float: left;
+            margin-right: -1px;
+        }
+        .selected button{
+            height: 37px;
+            /*margin-top: -1px;*/
+            margin-bottom: 2px ;
+        }
+        .selected{
+            float: left;
+            margin-left: 10px;
+            margin-bottom: 20px;
+        }
+        .bottom{
+            width: max-content;
+            margin: 100px auto 0 auto;
+        }
+
+    </style>
+</head>
+<input type="hidden" id="username" value="">
+<script>
+    document.getElementById("username").setAttribute("value",getContent("username"));
+</script>
+<input type="hidden" id="interestSum" th:if="${labelList==null}" th:value="0">
+<input type="hidden" id="interestSum" th:if="${labelList!=null}" th:value="${labelList.size()}">
+<div class="panel">
+    <div class="add-label">
+        <label>添加用户自定义标签：</label>
+        <input placeholder="请输入自定义标签" id="inp">
+        <button type="button" onclick="addLabel()" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe624;</i></button>
+    </div>
+    <div class="user-label">
+        <div class="now-label">当前用户标签：</div>
+        <div class="fe">
+            <ul id="selected-list">
+                <li class="selected" th:each="label:${labelList}" th:if="${labelList != null}">
+                    <div th:text="${label.label}"></div>
+                    <button type="button" onclick="deleteLabel(this)" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe67e;</i></button>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+<div class="bottom">
+    <button type="button" class="layui-btn" onclick="sub()">确认</button>
+</div>
+</body>
+</html>

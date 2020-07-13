@@ -1,0 +1,281 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../public/layui-v2.5.6/layui/css/layui.css">
+    <link rel="stylesheet" href="../public/css/index.css">
+    <script src="../public/layui-v2.5.6/layui/layui.js"></script>
+    <script src="../public/js/jquery.min.js"></script>
+    <base href="/">
+    <title>跨平台学习资源整合</title>
+</head>
+
+<body>
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo" style="font-size:20px;">跨平台学习资源整合</div>
+        <!-- 头部区域 -->
+        <ul class="layui-nav layui-layout-left">
+            <!-- 左边的课程分类 -->
+            <li class="layui-nav-item">
+                <a href="javascript:;">资源分类</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">人工智能</a></dd>
+                    <dd><a href="">编程与开发</a></dd>
+                    <dd><a href="">数据科学</a></dd>
+                </dl>
+            </li>
+        </ul>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item"><a href="">登录</a></li>
+            <li class="layui-nav-item"><a href="">注册</a></li>
+        </ul>
+    </div>
+
+    <div class="search">
+        <!-- 搜索框-->
+        <div class="input">
+            <!-- 输入框-->
+            <input type="text" name="title" required  lay-verify="required" placeholder="请输入关键词" autocomplete="off" class="layui-input">
+        </div>
+        <div class="s-button">
+            <!-- 搜索按钮-->
+            <button class="layui-btn" type="button">
+                <i class="layui-icon layui-icon-search"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="first" >
+        <blockquote class="layui-elem-quote">
+            <!-- 优质推荐栏 -->
+            <div class="recommend-header">
+                <!-- 头部 -->
+                <i class="layui-icon layui-icon-fire "></i>
+                <a target="_blank" class="name no-link" style="color:#009688;font-size:20px;">优质推荐</a>
+            </div>
+            <ul class="content-list">
+                <!-- 推荐内容列表 -->
+                <li class="content-one">
+                    <!-- 推荐单个资源 -->
+                    <!-- 下面是链接 -->
+                    <a href="//www.bilibili.com/video/BV1xs411Q799?from=search&seid=16960922053683373328" title="[小甲鱼]零基础入门学习Python" target="_blank" class="img-anchor">
+                        <!-- 下面是图片 -->
+                        <div class="content-img">
+                            <img alt src="http://localhost:63342/ui/img/a.jpg">
+                        </div>
+                    </a>
+                    <div class="name">
+                        <!-- 资源名字链接 -->
+                        <a title="[小甲鱼]零基础入门学习Python" href="//www.bilibili.com/video/BV1xs411Q799?from=search&seid=16960922053683373328" target="_blank" class="title">
+                            [小甲鱼]零基础入门学习Python
+                        </a>
+                    </div>
+                    <div class="from">
+                        <span class="from-info">
+                            bilibili
+                        </span>
+                    </div>
+                </li>
+                <li class="content-one">
+                    <!-- 推荐单个资源 -->
+                    <!-- 下面是链接 -->
+                    <a href="//www.bilibili.com/video/BV1xs411Q799?from=search&seid=16960922053683373328" title="[小甲鱼]零基础入门学习Python" target="_blank" class="img-anchor">
+                        <!-- 下面是图片 -->
+                        <div class="content-img">
+                            <img alt src="http://localhost:63342/ui/img/a.jpg">
+                        </div>
+                    </a>
+                    <div class="name">
+                        <!-- 资源名字链接 -->
+                        <a title="[小甲鱼]零基础入门学习Python" href="//www.bilibili.com/video/BV1xs411Q799?from=search&seid=16960922053683373328" target="_blank" class="title">
+                            [小甲鱼]零基础入门学习Python
+                        </a>
+                    </div>
+                    <div class="from">
+                        <span class="from-info">
+                            bilibili
+                        </span>
+                    </div>
+                </li>
+                <li class="content-one">
+                    <!-- 推荐单个资源 -->
+                    <!-- 下面是链接 -->
+                    <a href="//www.bilibili.com/video/BV1xs411Q799?from=search&seid=16960922053683373328" title="[小甲鱼]零基础入门学习Python" target="_blank" class="img-anchor">
+                        <!-- 下面是图片 -->
+                        <div class="content-img">
+                            <img alt src="http://localhost:63342/ui/img/a.jpg">
+                        </div>
+                    </a>
+                    <div class="name">
+                        <!-- 资源名字链接 -->
+                        <a title="[小甲鱼]零基础入门学习Python" href="//www.bilibili.com/video/BV1xs411Q799?from=search&seid=16960922053683373328" target="_blank" class="title">
+                            [小甲鱼]零基础入门学习Python
+                        </a>
+                    </div>
+                    <div class="from">
+                        <span class="from-info">
+                            bilibili
+                        </span>
+                    </div>
+                </li>
+                <li class="content-one">
+                    <!-- 推荐单个资源 -->
+                    <!-- 下面是链接 -->
+                    <a href="//www.bilibili.com/video/BV1xs411Q799?from=search&seid=16960922053683373328" title="[小甲鱼]零基础入门学习Python" target="_blank" class="img-anchor">
+                        <!-- 下面是图片 -->
+                        <div class="content-img">
+                            <img alt src="http://localhost:63342/ui/img/a.jpg">
+                        </div>
+                    </a>
+                    <div class="name">
+                        <!-- 资源名字链接 -->
+                        <a title="[小甲鱼]零基础入门学习Python" href="//www.bilibili.com/video/BV1xs411Q799?from=search&seid=16960922053683373328" target="_blank" class="title">
+                            [小甲鱼]零基础入门学习Python
+                        </a>
+                    </div>
+                    <div class="from">
+                        <span class="from-info">
+                            bilibili
+                        </span>
+                    </div>
+                </li>
+                <li class="content-one">
+                    <!-- 推荐单个资源 -->
+                    <!-- 下面是链接 -->
+                    <a href="//www.bilibili.com/video/BV1xs411Q799?from=search&seid=16960922053683373328" title="[小甲鱼]零基础入门学习Python" target="_blank" class="img-anchor">
+                        <!-- 下面是图片 -->
+                        <div class="content-img">
+                            <img alt src="http://localhost:63342/ui/img/a.jpg">
+                        </div>
+                    </a>
+                    <div class="name">
+                        <!-- 资源名字链接 -->
+                        <a title="[小甲鱼]零基础入门学习Python" href="//www.bilibili.com/video/BV1xs411Q799?from=search&seid=16960922053683373328" target="_blank" class="title">
+                            [小甲鱼]零基础入门学习Python
+                        </a>
+                    </div>
+                    <div class="from">
+                        <span class="from-info">
+                            bilibili
+                        </span>
+                    </div>
+                </li>
+                <li class="content-one">
+                    <!-- 推荐单个资源 -->
+                    <!-- 下面是链接 -->
+                    <a href="//www.bilibili.com/video/BV1xs411Q799?from=search&seid=16960922053683373328" title="[小甲鱼]零基础入门学习Python" target="_blank" class="img-anchor">
+                        <!-- 下面是图片 -->
+                        <div class="content-img">
+                            <img alt src="http://localhost:63342/ui/img/a.jpg">
+                        </div>
+                    </a>
+                    <div class="name">
+                        <!-- 资源名字链接 -->
+                        <a title="[小甲鱼]零基础入门学习Python" href="//www.bilibili.com/video/BV1xs411Q799?from=search&seid=16960922053683373328" target="_blank" class="title">
+                            [小甲鱼]零基础入门学习Python
+                        </a>
+                    </div>
+                    <div class="from">
+                        <span class="from-info">
+                            bilibili
+                        </span>
+                    </div>
+                </li>
+                <li class="content-one">
+                    <!-- 推荐单个资源 -->
+                    <!-- 下面是链接 -->
+                    <a href="//www.bilibili.com/video/BV1xs411Q799?from=search&seid=16960922053683373328" title="[小甲鱼]零基础入门学习Python" target="_blank" class="img-anchor">
+                        <!-- 下面是图片 -->
+                        <div class="content-img">
+                            <img alt src="http://localhost:63342/ui/img/a.jpg">
+                        </div>
+                    </a>
+                    <div class="name">
+                        <!-- 资源名字链接 -->
+                        <a title="[小甲鱼]零基础入门学习Python" href="//www.bilibili.com/video/BV1xs411Q799?from=search&seid=16960922053683373328" target="_blank" class="title">
+                            [小甲鱼]零基础入门学习Python
+                        </a>
+                    </div>
+                    <div class="from">
+                        <span class="from-info">
+                            bilibili
+                        </span>
+                    </div>
+                </li>
+                <li class="content-one">
+                    <!-- 推荐单个资源 -->
+                    <!-- 下面是链接 -->
+                    <a href="//www.bilibili.com/video/BV1xs411Q799?from=search&seid=16960922053683373328" title="[小甲鱼]零基础入门学习Python" target="_blank" class="img-anchor">
+                        <!-- 下面是图片 -->
+                        <div class="content-img">
+                            <img alt src="http://localhost:63342/ui/img/a.jpg">
+                        </div>
+                    </a>
+                    <div class="name">
+                        <!-- 资源名字链接 -->
+                        <a title="[小甲鱼]零基础入门学习Python" href="//www.bilibili.com/video/BV1xs411Q799?from=search&seid=16960922053683373328" target="_blank" class="title">
+                            [小甲鱼]零基础入门学习Python
+                        </a>
+                    </div>
+                    <div class="from">
+                        <span class="from-info">
+                            bilibili
+                        </span>
+                    </div>
+                </li>
+                <li class="content-one">
+                    <!-- 推荐单个资源 -->
+                    <!-- 下面是链接 -->
+                    <a href="//www.bilibili.com/video/BV1xs411Q799?from=search&seid=16960922053683373328" title="[小甲鱼]零基础入门学习Python" target="_blank" class="img-anchor">
+                        <!-- 下面是图片 -->
+                        <div class="content-img">
+                            <img alt src="http://localhost:63342/ui/img/a.jpg">
+                        </div>
+                    </a>
+                    <div class="name">
+                        <!-- 资源名字链接 -->
+                        <a title="[小甲鱼]零基础入门学习Python" href="//www.bilibili.com/video/BV1xs411Q799?from=search&seid=16960922053683373328" target="_blank" class="title">
+                            [小甲鱼]零基础入门学习Python
+                        </a>
+                    </div>
+                    <div class="from">
+                        <span class="from-info">
+                            bilibili
+                        </span>
+                    </div>
+                </li>
+                <li class="content-one">
+                    <!-- 推荐单个资源 -->
+                    <!-- 下面是链接 -->
+                    <a href="//www.bilibili.com/video/BV1xs411Q799?from=search&seid=16960922053683373328" title="[小甲鱼]零基础入门学习Python" target="_blank" class="img-anchor">
+                        <!-- 下面是图片 -->
+                        <div class="content-img">
+                            <img alt src="http://localhost:63342/ui/img/a.jpg">
+                        </div>
+                    </a>
+                    <div class="name">
+                        <!-- 资源名字链接 -->
+                        <a title="[小甲鱼]零基础入门学习Python" href="//www.bilibili.com/video/BV1xs411Q799?from=search&seid=16960922053683373328" target="_blank" class="title">
+                            [小甲鱼]零基础入门学习Python
+                        </a>
+                    </div>
+                    <div class="from">
+                        <span class="from-info">
+                            bilibili
+                        </span>
+                    </div>
+                </li>
+            </ul>
+        </blockquote>
+    </div>
+
+</div>
+<script>
+    //JavaScript代码区域
+    layui.use('element', function(){
+        var element = layui.element;
+
+    });
+</script>
+</body>
+</html>

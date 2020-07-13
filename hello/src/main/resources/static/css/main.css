@@ -1,0 +1,15 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+#main{
+    width:100%;
+    height: max-content;
+    background: #00F7DE;
+}
+iframe {
+    display: block;
+    border: none;
+    height: 90vh;
+    width: 100%;
+}

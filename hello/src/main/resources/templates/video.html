@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <link rel="stylesheet" href="../css/video.css">
+    <script src="../layui/layui.js"></script>
+    <script src="../js/search.js"></script>
+
+    <script src="../js/public_function.js"></script>
+
+    <base href="/">
+
+</head>
+<body>
+<input type="hidden" id="username" value="">
+<script>
+    document.getElementById("username").setAttribute("value",getContent("username"));
+</script>
+    <div class="person-Info-top">
+<!--        <div class="person-Info-top-location">-->
+<!--            <span>视频</span>-->
+<!--            <span>></span>-->
+<!--            <span>视频</span>-->
+<!--        </div>-->
+    </div>
+    <div class="collection-main">
+        <div class="collection-main-list">
+        </div>
+        <div class="collection-main-video">
+            <p th:if="${resourceList}==null">无记录</p>
+            <ul th:if="${resourceList}!=null" class="" th:each="resource:${resourceList}">
+                <!-- 推荐内容列表 -->
+                <li class="">
+                    <!-- 推荐单个资源 -->
+                    <!-- 下面是链接 -->
+                    <div class="video-box">
+                        <a  href="javascript:void(0);" onclick="postToPage(this)" th:value="${resource.tid}+'-'+${resource.url}">
+                            <img th:src="'../image/resource/'+${resource.tid}+'.png'">
+                        </a>
+                        <div class="video-info">
+                            <div class="video-h1" th:text="${resource.title}"></div>
+                            <div style="margin-top: 10px">
+                                <div style="width: 100px;margin-left: 10px;height: max-content;float: left;" th:text="${resource.platform}"></div>
+                                <div style="width: 250px;text-align: right;height: max-content;float: right;" th:text="${resource.author}"></div>
+                            </div>
+                            <div style="margin-top: 40px">
+                                <div style="width: max-content;margin-left: 10px;height: max-content;float: left;" th:text="'收藏 '+${resource.collection}"></div>
+                                <div style="width: 250px;text-align: right;height: max-content;float: right;" th:text="'播放 '+${resource.play}"></div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    <div></div>
+
+
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <script src="../layui/layui.js"></script>
+
+    <script src="../js/public_function.js"></script>
+    <base href="/">
+    <script>
+        var interestLimited = 10;
+        //设置最多保存10个兴趣
+
+        function test(object) {
+            //变色
+            var status = object.getAttribute("value");
+            var interest = document.getElementById("interestSum");
+            var interestSum = parseInt(interest.value);
+            if(status == '1'){
+                //取消
+                if(interestSum -1 < 0) alert("至少选择1个兴趣！");
+                else{
+                    object.setAttribute("class","layui-btn layui-btn-primary layui-btn-radius");
+                    object.setAttribute("value","0");
+                    interest.setAttribute("value",interestSum-1);
+                }
+
+            }else if(status == '0'){
+                //确认
+                if(interestSum+1 > interestLimited) alert("至多选择10个兴趣！");
+                else{
+                    object.setAttribute("class","layui-btn layui-btn-radius");
+                    object.setAttribute("value","1");
+                    interest.setAttribute("value",interestSum+1);
+                }
+
+            }
+        }
+        function sub() {
+            //提交
+            var interest = "";
+            var interestSum = 0;
+            var divList = document.getElementById("list").children;
+            // alert(divList.length);
+            for(var i=0;i<divList.length;++i){
+                var buttonList = divList[i].children;
+                // alert(buttonList.length);
+                for(var j=0;j< buttonList.length;++j){
+                    if(buttonList[j].tagName != 'BUTTON') continue;
+                    else{
+                        //是选项按钮
+                        var status = buttonList[j].getAttribute("value");
+
+                        if(status == '1'){
+                            //说明被选中
+                            if(interestSum > 0) interest += "-";
+                            interest += buttonList[j].innerText;
+                            interestSum += 1;
+                        }
+                    }
+                }
+            }
+            if(interestSum <= 0) alert("至少选择1个兴趣！");
+            else{
+                //提交表单
+                if(getContent("registerInfo")){
+                    var f=document.createElement("form");
+                    f.action = '/register';
+                    f.target = '_parent';
+                    f.method = 'post';
+                    var param = getContent("registerInfo").split("|");
+                    var inputStr = "";
+                    for(var i=0;i<param.length;++i){
+                        var input = param[i].split(",");
+                        inputStr+='<input type="hidden" name="'+input[0]+'" value="'+input[1]+'">';
+                    }
+                    inputStr += '<input type="hidden" name="interest" value="'+interest+'">';
+                    f.innerHTML = inputStr;
+                    document.body.appendChild(f);
+                    f.submit();
+                }
+
+            }
+
+        }
+        var localStorage = window.localStorage;
+        //定义全局变量u
+        //设置缓存
+        function storeContent(key, value) {
+            var v = value;
+            //是对象转成JSON，不是直接作为值存入内存
+            if (typeof v == 'object') {
+                v = JSON.stringify(v);
+                v = 'obj-' + v;
+            } else {
+                v = 'str-' + v;
+            }
+            var localStorage = window.localStorage;
+            if (localStorage ) {
+                localStorage .setItem(key, v);
+            }
+        };
+        //获取缓存
+        function getContent(key) {
+            var localStorage = window.localStorage;
+            if (localStorage ){
+                var v = localStorage.getItem(key);
+                if (!v) {
+                    return;
+                }
+                if (v.indexOf('obj-') === 0) {
+                    v = v.slice(4);
+                    return JSON.parse(v);
+                } else if (v.indexOf('str-') == 0) {
+                    return v.slice(4);
+                }
+            }
+        };
+
+        function requ() {
+            var key = getContent("interest");
+            alert(key);
+        }
+
+        function loadRegister() {
+            var registerStatus = document.getElementById("registerStatus").value;
+            if(registerStatus){
+                if(registerStatus=="1"){
+                    alert("注册成功！");
+                    index();
+                }else if(registerStatus == '0'){
+                    alert("注册失败！");
+                }
+
+            }
+        }
+
+    </script>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        .list-item{
+            width: 600px;
+            height: max-content;
+            margin: 20px auto;
+        }
+        .list-item label{
+            width: max-content;
+            height: max-content;
+            margin-right: 10px;
+            text-align: right;
+        }
+        .bottom{
+            width: max-content;
+            height: max-content;
+            margin: 50px auto;
+        }
+
+    </style>
+</head>
+<body onload="loadRegister()">
+<input type="hidden" value="1" th:if="${registerStatus==true}" id="registerStatus">
+<input type="hidden" value="0" th:if="${registerStatus==false}" id="registerStatus">
+<input type="hidden"  onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'') " value="0" id="interestSum">
+<div class="top">
+</div>
+<div id="list">
+    <div class="list-item">
+        <label>编程语言</label>
+        <button type="button" class="layui-btn layui-btn-primary layui-btn-radius" onclick="test(this)" value="0">python</button>
+        <button type="button" class="layui-btn layui-btn-primary layui-btn-radius" onclick="test(this)" value="0">java</button>
+        <button type="button" class="layui-btn layui-btn-primary layui-btn-radius" onclick="test(this)" value="0">c</button>
+        <button type="button" class="layui-btn layui-btn-primary layui-btn-radius" onclick="test(this)" value="0">c++</button>
+        <button type="button" class="layui-btn layui-btn-primary layui-btn-radius" onclick="test(this)" value="0">c#</button>
+        <button type="button" class="layui-btn layui-btn-primary layui-btn-radius" onclick="test(this)" value="0">php</button>
+    </div>
+    <div class="list-item">
+        <label>数据科学</label>
+
+        <button type="button" class="layui-btn layui-btn-primary layui-btn-radius" onclick="test(this)" value="0">数据挖掘</button>
+        <button type="button" class="layui-btn layui-btn-primary layui-btn-radius" onclick="test(this)" value="0">数据分析</button>
+        <button type="button" class="layui-btn layui-btn-primary layui-btn-radius" onclick="test(this)" value="0">区块链</button>
+        <button type="button" class="layui-btn layui-btn-primary layui-btn-radius" onclick="test(this)" value="0">大数据</button>
+    </div>
+    <div class="list-item">
+        <label>人工智能</label>
+
+        <button type="button" class="layui-btn layui-btn-primary layui-btn-radius" onclick="test(this)" value="0">神经网络</button>
+        <button type="button" class="layui-btn layui-btn-primary layui-btn-radius" onclick="test(this)" value="0">自然语言处理</button>
+        <button type="button" class="layui-btn layui-btn-primary layui-btn-radius" onclick="test(this)" value="0">pytorch</button>
+        <button type="button" class="layui-btn layui-btn-primary layui-btn-radius" onclick="test(this)" value="0">tensorflow</button>
+    </div>
+    <div class="list-item">
+        <label>办公软件</label>
+
+        <button type="button" class="layui-btn layui-btn-primary layui-btn-radius" onclick="test(this)" value="0">word</button>
+        <button type="button" class="layui-btn layui-btn-primary layui-btn-radius" onclick="test(this)" value="0">excel</button>
+        <button type="button" class="layui-btn layui-btn-primary layui-btn-radius" onclick="test(this)" value="0">ppt</button>
+    </div>
+    <div class="list-item">
+        <label>应用开发</label>
+
+        <button type="button" class="layui-btn layui-btn-primary layui-btn-radius" onclick="test(this)" value="0">andriod</button>
+        <button type="button" class="layui-btn layui-btn-primary layui-btn-radius" onclick="test(this)" value="0">ios</button>
+        <button type="button" class="layui-btn layui-btn-primary layui-btn-radius" onclick="test(this)" value="0">unity3D</button>
+    </div>
+    <div class="list-item">
+        <label>职业考试</label>
+
+        <button type="button" class="layui-btn layui-btn-primary layui-btn-radius" onclick="test(this)" value="0">考研</button>
+        <button type="button" class="layui-btn layui-btn-primary layui-btn-radius" onclick="test(this)" value="0">计算机二级</button>
+        <button type="button" class="layui-btn layui-btn-primary layui-btn-radius" onclick="test(this)" value="0">软考</button>
+        <button type="button" class="layui-btn layui-btn-primary layui-btn-radius" onclick="test(this)" value="0">思科/华为认证</button>
+    </div>
+</div>
+<div class="bottom">
+    <button type="button" class="layui-btn" onclick="sub()">注册</button>
+    <button type="button" class="layui-btn layui-btn-primary" onclick="index()">取消</button>
+</div>
+<button onclick="requ('interest')"></button>
+</body>
+</html>

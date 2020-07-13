@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/detail.css">
+    <script src="../layui/layui.js"></script>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/search.js"></script>
+
+    <script src="../js/public_function.js"></script>
+
+    <base href="/">
+    <title>跨平台学习资源整合</title>
+</head>
+
+<body>
+<div class="top">
+    <ul class="layui-nav layui-bg-cyan">
+        <li class="layui-nav-item layui-this"><a href="javascript:void(0);" onclick="index()">首页</a></li>
+        <li class="layui-nav-item">
+            <a href="javascript:;">分类</a>
+            <dl class="layui-nav-child" style="width: max-content;color: #2E2D3C">
+                <dd style="overflow: auto">
+                    <span style="width: max-content;float: left;padding-left: 10px">编程语言</span>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">python</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">java</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">c</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">c++</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">php</a>
+                </dd>
+                <dd style="overflow: auto">
+                    <span style="width: max-content;float: left;padding-left: 10px">数据科学</span>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">数据挖掘</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">数据分析</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">区块链</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">大数据</a>
+                </dd>
+                <dd style="overflow: auto">
+                    <span style="width: max-content;float: left;padding-left: 10px">人工智能</span>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">神经网络</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">自然语言处理</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">tensorflow</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">pytorch</a>
+                </dd>
+                <dd style="overflow: auto">
+                    <span style="width: max-content;float: left;padding-left: 10px">办公软件</span>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">word</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">excel</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">ppt</a>
+                </dd>
+                <dd style="overflow: auto">
+                    <span style="width: max-content;float: left;padding-left: 10px">应用开发</span>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">android</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">ios</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">unity3D</a>
+                </dd>
+                <dd style="overflow: auto">
+                    <span style="width: max-content;float: left;padding-left: 10px">职业考试</span>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">考研</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">计算机二级</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">软考</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">思科/华为认证</a>
+                </dd>
+            </dl>
+        </li>
+
+    </ul>
+    <ul class="layui-nav layui-layout-right" id="personInfo" style="background: #2F4056">
+        <li class="layui-nav-item" id="login-model" ><a href="/login">登录</a></li>
+        <li class="layui-nav-item" id="register-model"><a href="javascript:void(0);" onclick="pageJump('register_1')">注册</a></li>
+        <li class="layui-nav-item" id="userInfo">
+            <!-- 右上角的用户 -->
+            <a href="javascript:;">
+                <img src="http://t.cn/RCzsdCq" class="layui-nav-img" id="userInfo-username"></a>
+            <dl class="layui-nav-child">
+                <dd><a href="javascript:void(0);" onclick="personPage()">用户管理</a></dd>
+                <dd><a href="javascript:void(0);" onclick="exit(this)">退出登录</a></dd>
+            </dl>
+        </li>
+    </ul>
+    <script>
+        var loginDom = document.getElementById("login-model");
+        var registerDom = document.getElementById("register-model");
+        var userInfoDom = document.getElementById("userInfo");
+        var username = getContent("username");
+        if(username==null ||username.length==0){
+            userInfoDom.innerHTML="";
+        }else{
+            loginDom.innerHTML = "";
+            registerDom.innerHTML = "";
+        }
+    </script>
+</div>
+
+    <div class="search">
+        <!-- 搜索框-->
+        <div class="input">
+            <!-- 输入框-->
+            <form action="/search" id="search">
+                <input type="text" name="search" id="searchInput" required  lay-verify="required" th:value="${search}" autocomplete="off" class="layui-input">
+            </form>
+        </div>
+        <div class="s-button">
+            <!-- 搜索按钮-->
+            <button class="layui-btn" type="button" onclick="search()">
+                <i class="layui-icon layui-icon-search"></i>
+            </button>
+        </div>
+    </div>
+    <div class="first" >
+        <blockquote class="layui-elem-quote" style="overflow: auto;width: 97%">
+            <!-- 为您推荐栏 -->
+            <div class="recommend-header">
+                <!-- 推荐头部 -->
+                <i class="layui-icon layui-icon-heart-fill "></i>
+                <a target="_blank" class="name no-link" style="color:#009688;font-size:20px;">搜索结果</a>
+            </div>
+            <ul class="content-list" th:if="${resourceList!=null}" th:each="resource:${resourceList}">
+                <!-- 推荐内容列表 -->
+                <li class="content-one" style="float: left">
+                    <!-- 推荐单个资源 -->
+                    <!-- 下面是链接 -->
+                    <a href="javascript:void(0);" onclick="postToPage(this)" th:value="${resource.tid}+'-'+${resource.url}" class="img-anchor">
+                        <!-- 下面是图片 -->
+                        <div class="content-img">
+                            <img alt th:src="'../image/resource/'+${resource.tid}+'.png'">
+                        </div>
+                    </a>
+                    <div class="name">
+                        <!-- 资源名字链接 -->
+                        <a href="javascript:void(0);" onclick="postToPage(this)" th:value="${resource.tid}+'-'+${resource.url}" th:text="${resource.title}" class="title">
+                        </a>
+                    </div>
+                    <div class="from">
+                        <span class="from-info" th:text="${resource.platform}"></span>
+                        <span class="form-author" th:text="${resource.author}"></span>
+                    </div>
+                </li>
+
+            </ul>
+
+        </blockquote>
+    </div>
+    <div class="page" th:if="${resourceList.size()==0}" style="text-align: center;color:#009688; margin-top: 150px;font-size: 17px">无记录</div>
+    <div class="page" th:if="${pageSum!=0}">
+        <div class="page-list">
+            <ul>
+                <li class="page-ch" th:if="${nowPage-1} >= 1">
+                    <a th:href="'/search1?searchStr='+${search1}+'&page=' + ${nowPage-1}" th:text="上一页"></a>
+                </li>
+                <li class="page-number" th:if="${nowPage} != 1">
+                    <a th:href="'/search1?searchStr='+${search1}+'&page=' + 1" th:text="1"></a>
+                </li>
+                <li class="page-number" th:if="${nowPage-2} > 1">...</li>
+                <li class="page-number" th:if="${nowPage}-1 > ${1}">
+                    <a th:href="'/search1?searchStr='+${search1}+'&page=' + ${nowPage-1}" th:text="${nowPage-1}"></a>
+                </li>
+                <li class="page-now">
+                    <a th:href="'/search1?searchStr='+${search1}+'&page=' + ${nowPage}" th:text="${nowPage}"></a>
+                </li>
+                <li class="page-number" th:if="${nowPage}+1<${pageSum}">
+                    <a th:href="'/search1?searchStr='+${search1}+'&page=' + ${nowPage+1}" th:text="${nowPage+1}"></a>
+
+                </li>
+                <li class="page-number" th:if="${nowPage+2} < ${pageSum}">...</li>
+                <li class="page-number" th:if="${nowPage} != ${pageSum}">
+                    <a th:href="'/search1?searchStr='+${search1}+'&page=' + ${pageSum}" th:text="${pageSum}"></a>
+                </li>
+                <li class="page-ch" th:if="${nowPage+1}<=${pageSum}">
+                    <a th:href="'/search1?searchStr='+${search1}+'&page=' + ${nowPage+1}" th:text="下一页"></a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    <div class="bottom">
+
+    </div>
+<script>
+    //JavaScript代码区域
+    layui.use('element', function(){
+        var element = layui.element;
+
+    });
+</script>s
+</body>
+</html>

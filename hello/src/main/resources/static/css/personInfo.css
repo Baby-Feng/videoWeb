@@ -1,0 +1,75 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.person-Info{
+    width: 100%;
+    height: max-content;
+    margin: 0 auto;
+}
+.person-Info-top{
+    height: max-content;
+}
+.person-Info-top-location{
+    width: max-content;
+    height: max-content;
+    padding-left: 20px;
+    font-size: 15px;
+}
+.person-Info-fixed{
+    width: max-content;
+    height: auto;
+    float: left;
+    padding: 10px 0 0 10px;
+}
+.person-Info-center{
+    width: 100%;
+    height: max-content;
+    margin: 70px auto 0 auto;
+
+}
+.person-Info-center table{
+    margin: 0 auto;
+
+}
+
+.person-Info-center tr{
+    font-size: 15px;
+}
+.person-Info-center tr td{
+    height: 60px;
+}
+
+.person-Info-center tr td label{
+    float: right;
+    color: #a1a59e;
+}
+
+.person-Info-center tr td span{
+    width: max-content;
+    float: left;
+    padding: 0 30px 0 30px;
+}
+.person-Info-center tr td input{
+    padding-left: 20px;
+    height: 30px;
+    border: #6da55b solid 1px;
+    border-radius: 5px;
+}
+
+
+.person-Info-center-button{
+    width: max-content;
+    margin: 40px auto;
+
+}
+
+
+/*person-modify*/
+.person-modify-main{
+    width: max-content;
+    height: max-content;
+    margin: 0 auto;
+    padding: 50px 50px 0 0;
+}

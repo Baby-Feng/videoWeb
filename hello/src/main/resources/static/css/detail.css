@@ -1,0 +1,59 @@
+.page{
+    width: 600px;
+    height: 50px;
+    /*background: #adb2b9;*/
+    margin: 10px auto;
+    overflow: hidden;
+}
+
+
+
+.page ul{
+    display: inline-block;
+    width: auto;
+    height: auto;
+}
+
+.page ul li.page-ch{
+    width: 80px;
+    font-size: 15px;
+    height: 27px;
+    float: left;
+    padding-top: 10px;
+    margin-left: 15px;
+    border-radius: 5px;
+    text-align: center;
+    color: #009688;
+    border: solid 1px #F2F2F2;
+}
+
+.page ul li.page-number{
+    width: 40px;
+    font-size: 15px;
+    height: 27px;
+    float: left;
+    padding-top: 10px;
+    margin-left: 15px;
+    border-radius: 5px;
+    text-align: center;
+    color: #009688;
+    border: solid 1px #F2F2F2;
+}
+
+.page ul li.page-now{
+    width: 40px;
+    font-size: 15px;
+    height: 27px;
+    float: left;
+    padding-top: 10px;
+    margin-left: 15px;
+    border-radius: 5px;
+    text-align: center;
+    background: #009688;
+    color: #fdfeff;
+}
+.bottom{
+    width: 80%;
+    height: 100px;
+    margin: 20px auto;
+}

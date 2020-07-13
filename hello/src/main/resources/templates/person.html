@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>用户管理</title>
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <script src="../layui/layui.js"></script>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/person.js"></script>
+    <script src="../js/public_function.js"></script>
+    <base href="/">
+</head>
+<body class="layui-layout-body" onload="loadPerson()">
+<input type="hidden" id="username" value="">
+<script>
+    document.getElementById("username").setAttribute("value",getContent("username"));
+</script>
+<div class="layui-layout layui-layout-admin">
+    <div class="top">
+        <ul class="layui-nav layui-bg-cyan">
+            <li class="layui-nav-item layui-this"><a href="javascript:void(0);" onclick="index()">首页</a></li>
+        </ul>
+        <ul class="layui-nav layui-layout-right" id="personInfo" style="background: #2F4056">
+            <li class="layui-nav-item" id="userInfo">
+                <!-- 右上角的用户 -->
+                <a href="javascript:void(0);" onclick="exit()">退出登录</a>
+<!--                <a href="javascript:;">-->
+<!--                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img" id="userInfo-username"></a>-->
+<!--                <dl class="layui-nav-child">-->
+<!--                    <dd><a href="javascript:void(0);" onclick="exit()">退出登录</a></dd>-->
+<!--                </dl>-->
+            </li>
+        </ul>
+    </div>
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree"  lay-filter="test" style="background: #2F4056">
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a class="" href="javascript:void(0);">基本设置</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:void(0);" onclick="person('/personInfo')">个人信息</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:void(0);" onclick="person('/label')">个性化设置</a>
+                </li>
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a class="" href="javascript:void(0);">安全设置</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:void(0);" onclick="person('/password')">修改密码</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:void(0);" onclick="person('/collection')">我的收藏</a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:void(0);" onclick="person('/history')">历史记录</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body" id="main">
+        <!-- 内容主体区域 -->
+<!--        <div style="padding: 15px;">内容主体区域</div>-->
+    </div>
+
+    <div class="layui-footer">
+        <!-- 底部固定区域 -->
+<!--        © layui.com - 底部固定区域-->
+    </div>
+</div>
+<script src="../layui/layui.js"></script>
+<script>
+    //JavaScript代码区域
+    layui.use('element', function(){
+        var element = layui.element;
+
+    });
+</script>
+</body>
+</html>

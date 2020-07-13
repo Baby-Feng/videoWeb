@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <script src="../layui/layui.js"></script>
+    <script src="../js/jquery.min.js"></script>
+
+    <script src="../js/public_function.js"></script>
+
+    <script>
+        function addCollection(object) {
+            var username = getContent("username");
+            if(!username){
+                alert("请先登录！");
+                if(document.getElementById("userInfo-username")) location.reload();
+                return;
+            }
+            var info = object.getAttribute("value").split("-");
+            var tid = info[0];
+            var url = info[1];
+            var f=document.createElement("form");
+            f.action = '/addCollection';
+            f.target = '_parent';
+            f.method = 'post';
+            f.innerHTML='<input type="hidden" name="username" value="'+username+'">'+
+                '<input type="hidden" name="url" value="'+url+'">'+
+                '<input type="hidden" name="tid" value="'+tid+'">';
+            document.body.appendChild(f);
+            f.submit();
+        }
+
+
+        function deleteCollection(object) {
+            var username = getContent("username");
+            if(!username){
+                alert("请先登录！");
+                if(document.getElementById("userInfo-username")) location.reload();
+                return;
+            }
+            var info = object.getAttribute("value").split("-");
+            var tid = info[0];
+            var url = info[1];
+            var f=document.createElement("form");
+            f.action = '/deleteCollection';
+            f.target = '_parent';
+            f.method = 'post';
+            f.innerHTML='<input type="hidden" name="username" value="'+username+'">'+
+                '<input type="hidden" name="url" value="'+url+'">'+
+                '<input type="hidden" name="tid" value="'+tid+'">';
+            document.body.appendChild(f);
+            f.submit();
+        }
+    </script>
+    <base href="/">
+</head>
+<body>
+<div class="top">
+    <ul class="layui-nav layui-bg-cyan">
+        <li class="layui-nav-item layui-this"><a href="javascript:void(0);" onclick="index()">首页</a></li>
+        <li class="layui-nav-item">
+            <a href="javascript:;">分类</a>
+            <dl class="layui-nav-child" style="width: max-content;color: #2E2D3C">
+                <dd style="overflow: auto">
+                    <span style="width: max-content;float: left;padding-left: 10px">编程语言</span>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">python</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">java</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">c</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">c++</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">php</a>
+                </dd>
+                <dd style="overflow: auto">
+                    <span style="width: max-content;float: left;padding-left: 10px">数据科学</span>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">数据挖掘</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">数据分析</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">区块链</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">大数据</a>
+                </dd>
+                <dd style="overflow: auto">
+                    <span style="width: max-content;float: left;padding-left: 10px">人工智能</span>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">神经网络</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">自然语言处理</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">tensorflow</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">pytorch</a>
+                </dd>
+                <dd style="overflow: auto">
+                    <span style="width: max-content;float: left;padding-left: 10px">办公软件</span>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">word</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">excel</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">ppt</a>
+                </dd>
+                <dd style="overflow: auto">
+                    <span style="width: max-content;float: left;padding-left: 10px">应用开发</span>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">android</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">ios</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">unity3D</a>
+                </dd>
+                <dd style="overflow: auto">
+                    <span style="width: max-content;float: left;padding-left: 10px">职业考试</span>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">考研</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">计算机二级</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">软考</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">思科/华为认证</a>
+                </dd>
+            </dl>
+        </li>
+
+    </ul>
+    <ul class="layui-nav layui-layout-right" id="personInfo" style="background: #2F4056">
+        <li class="layui-nav-item" id="temp"></li>
+        <li class="layui-nav-item" id="yesCollection" th:if="${isResourceInCollection == 0}">
+            <a href="javascript:void(0);" onclick="addCollection(this)" th:value="${tid}+'-'+${url}">
+                收藏
+                <i class="layui-icon" style="font-size: 15px;margin-left: 10px">&#xe600;</i>
+            </a>
+        </li>
+        <li class="layui-nav-item" id="noCollection" th:if="${isResourceInCollection == 1}">
+            <a href="javascript:void(0);" onclick="deleteCollection(this)" th:value="${tid}+'-'+${url}">
+                取消收藏
+                <i class="layui-icon" style="font-size: 15px;color: #009688;margin-left: 10px">&#xe658;</i>
+            </a>
+        </li>
+        <li class="layui-nav-item" id="login-model" ><a href="/login">登录</a></li>
+        <li class="layui-nav-item" id="register-model"><a href="javascript:void(0);" onclick="pageJump('register_1')">注册</a></li>
+        <li class="layui-nav-item" id="userInfo">
+            <!-- 右上角的用户 -->
+            <a href="javascript:;" id="userInfo-username">
+                <img src="http://t.cn/RCzsdCq" class="layui-nav-img"></a>
+            <dl class="layui-nav-child">
+                <dd><a href="javascript:void(0);" onclick="personPage()">用户管理</a></dd>
+                <dd><a href="javascript:void(0);" onclick="exit(this)">退出登录</a></dd>
+            </dl>
+        </li>
+    </ul>
+    <script>
+        var loginDom = document.getElementById("login-model");
+        var registerDom = document.getElementById("register-model");
+        var userInfoDom = document.getElementById("userInfo");
+        var noCollectionDom = document.getElementById("noCollection");
+        var tempDom = document.getElementById("temp");
+        var username = getContent("username");
+        if(!username){
+            //未登录
+            userInfoDom.innerHTML="";
+            noCollectionDom.innerHTML = "";
+            tempDom.innerHTML = '<a href="javascript:void(0);" onclick="addCollection(this)">'+
+                    '收藏' +
+                    '<i class="layui-icon" style="font-size: 15px;margin-left: 10px">&#xe600;</i>' +
+                '</a>';
+        }else{
+            loginDom.innerHTML = "";
+            registerDom.innerHTML = "";
+        }
+    </script>
+</div>
+<iframe id="iframe" name="iframe" th:src="${url}" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0">
+
+</iframe>
+
+<div id="block"></div>
+<script>
+    //JavaScript代码区域
+    layui.use('element', function(){
+        var element = layui.element;
+
+    });
+</script>
+</body>
+</html>

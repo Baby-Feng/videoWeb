@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/personInfo.css">
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <script src="../js/person.js"></script>
+
+    <script src="../js/public_function.js"></script>
+
+    <base href="/">
+</head>
+<body>
+<input type="hidden" id="username" value="">
+<script>
+    document.getElementById("username").setAttribute("value",getContent("username"));
+</script>
+    <div class="person-Info">
+        <div class="person-Info-top">
+<!--            当前位置-->
+<!--            <div class="person-Info-top-location">-->
+<!--                <span>基本设置</span>-->
+<!--                <span>></span>-->
+<!--                <span>个人信息</span>-->
+<!--            </div>-->
+
+        </div>
+        <div class="person-Info-center">
+            <div>
+                <table>
+                        <tr>
+                            <td><label>用户名：</label></td>
+                            <td><span th:text="${user.username}"></span></td>
+                        </tr>
+                        <tr>
+                            <td><label>昵称：</label></td>
+                            <td><input name="name" id="name" th:value="${user.name}" placeholder="请输入昵称"></td>
+                        </tr>
+                        <tr>
+                            <td><label>手机：</label></td>
+                            <td><input name="phone" id="phone" th:value="${user.phone}" placeholder="请输入手机"></td>
+                        </tr>
+                        <tr>
+                            <td><label>邮箱：</label></td>
+                            <td><input name="email" id="email" th:value="${user.email}" placeholder="请输入邮箱"></td>
+                        </tr>
+                </table>
+            </div>
+            <div class="person-Info-center-button">
+                <button type="button" class="layui-btn" onclick="submitRequest()">修改</button>
+                <button type="button" class="layui-btn">取消</button>
+            </div>s
+        </div>
+    </div>
+</body>
+</html>

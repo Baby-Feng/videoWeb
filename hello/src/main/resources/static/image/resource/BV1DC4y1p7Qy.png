@@ -1,0 +1,249 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="zh-cn">
+
+<head>
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <meta http-equiv="Page-Enter" content="blendTrans(Duration=0.5)">
+    <meta http-equiv="Page-Exit" content="blendTrans(Duration=0.5)">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>出错啦! - bilibili.com</title>
+    <style type="text/css">
+        body {
+            vertical-align: middle;
+        }
+
+        div.center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: -25% 0 0 -320px;
+            width: 640px;
+            min-height: 427px;
+            padding: 0px;
+        }
+
+        div.errmsg {
+            text-align: left;
+            width: 640px;
+            line-height: 150%;
+        }
+
+        a {
+            text-decoration: none;
+            color: red
+        }
+
+        .center {
+            display: none
+        }
+        .right-panel .txt-item {
+            margin-bottom: 5px;
+            font-size: 14px;
+            font-weight: normal;
+        }
+        .right-panel .txt-item:first-child {
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        .check-input {
+            margin-top: 20px;
+        }
+        .check-input .box {
+            display: flex;
+            align-items: center;
+        }
+        .check-input img {
+            width: 142px;
+        }
+        .check-input input {
+            box-sizing: border-box;
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 2px;
+            color: #aaa;
+            font-size: 14px;
+            padding: 8px;
+            height: 38px;
+            vertical-align: middle;
+            border-radius: 4px;
+            width: 142px;
+            background: #f9fafc;
+            text-transform: uppercase;
+            outline: none;
+            margin-right: 10px;
+        }
+        .check-input input:focus {
+            border-color: #00a7de;
+        }
+        .check-input button {
+            color: #555;
+            display: inline-block;
+            height: 38px;
+            border-radius: 4px;
+            width: 100px;
+            line-height: 34px;
+            font-size: 14px;
+            text-align: center;
+            cursor: pointer;
+            transition: all .3s;
+            border: 1px solid #0381aa;
+            color: #fff;
+            background-color: #00a7de;
+        }
+        .check-input button:hover {
+            background: #00bee7;
+        }
+        .check-input .box-pic {
+            margin: 10px 0;
+        }
+        .check-input .state {
+            margin-top: 10px;
+        }
+    </style>
+    <link rel="shortcut icon" href="//static.hdslb.com/images/favicon.ico">
+    <link href="//static.hdslb.com/error/dist/error.css" rel="stylesheet">
+    <script type="text/javascript">
+        var options = {
+            type: 'defaultError'
+        }
+    </script>
+    <script type="text/javascript" src="//s1.hdslb.com/bfs/static/jinkela/long/js/jquery/jquery1.7.2.min.js"></script>
+    
+</head>
+
+<body style="direction: ltr;">
+    <div id="biliMainHeader" style="height: 56px; background-color: #fff;"></div>
+    <div class="error-container">
+        <div class="error-panel server-error">
+            <img src="//static.hdslb.com/error/very_sorry.png">
+            <div>
+                <div class="left-panel">
+                    <a class="rollback-btn">返回上一页</a>
+                </div>
+                <div class="right-panel">
+                    <div class="txt-item">错误号:412</div>
+                    <div class="txt-item">由于触发哔哩哔哩安全风控策略，该次访问请求被拒绝。</div>
+                    <div class="txt-item">The request was rejected because of the bilibili security control policy.</div>
+                    <div class="check-input">
+                        <div class="title"></div>
+                        <div class="box-pic"></div>
+                        <div class="box"></div>
+                        <div class="state"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="error-split">
+        </div>
+        <div class="error-manga">
+        </div>
+    </div>
+    <script type="text/javascript" src="//s1.hdslb.com/bfs/seed/jinkela/header-v2/header.js"></script>
+    <script type="text/javascript" charset="utf-8" src="//static.hdslb.com/error/dist/error.js"></script>
+    <script>
+        var getCaptherUrl = 'https://sec.biliapi.net/th/captcha/get';
+        var validateCaptherUrl = 'https://sec.biliapi.net/th/captcha/check';
+    
+        window.onload = function () {    
+            $.ajax({
+                url : getCaptherUrl,
+                // async: false,
+                success: function(data) {
+                    if (data.data.show === true) {
+                        addDom(data)
+    
+                        $("#img-captcha").click(function(){
+                            var tmp_data = getCaptcha()
+                            $('#img-captcha').attr('src', function(){ return genImg(tmp_data.data.captcha.imageBase64String) })
+                            $('#hidden-input').val(tmp_data.data.captcha.token)
+                        })
+    
+                        $("#validate_submit").click(function(){
+                            var hidden_v = $('#hidden-input').val()
+                            var input_v = $('#validate-input').val()
+                            var post_data = {
+                                token : hidden_v,
+                                key: input_v
+                            }
+                            $.ajax({
+                                url: validateCaptherUrl,
+                                type: 'POST',
+                                data: post_data,
+                                async : false,
+                                contentType:"application/x-www-form-urlencoded",
+                                success: function (data) {
+                                    if (data.code === 0) {
+                                        // 设置五秒后跳转
+                                        setTimeout(function(){
+                                            location.reload()
+                                        }, 10000)
+
+                                        $('#success_msg').show()
+                                        $('#error_msg').hide()
+                                    } else {
+                                        // 刷新验证码，显示错误信息
+                                        var tmp_data = getCaptcha()
+                                        $('#img-captcha').attr('src', function(){ return genImg(tmp_data.data.captcha.imageBase64String) })
+                                        $('#hidden-input').val(tmp_data.data.captcha.token)
+                                        
+                                        $('#error_msg').show()
+                                        $('#success_msg').hide()
+                                    }
+                                }
+                            })
+                        })
+                    }
+                },
+                timeout: 5000
+            })
+        
+        }
+    
+        function genImg(data) {
+            return 'data:image/jpeg;base64,' + data
+        }
+    
+        function getCaptcha() { 
+            var resp = {}
+            $.ajax({
+                url : getCaptherUrl,
+                async: false,
+                success: function(data) {
+                    resp = data
+                },
+                timeout: 5000
+            })
+            return resp
+        }
+    
+        function addDom(data) {
+            // 创建 label
+            $('.check-input .title').append('<div class="txt-item">请输入验证码进行人机校验:</div>')
+            
+            // 创建 img
+            var captcha_img = new Image()
+            captcha_img.src = genImg(data.data.captcha.imageBase64String)
+            captcha_img.id = "img-captcha"
+            var rp = document.getElementsByClassName('check-input')
+            $('.check-input .box-pic').append(captcha_img)
+    
+            // 创建 hidden input value
+            var hidden_value = document.createElement('input')
+            hidden_value.value = data.data.captcha.token
+            hidden_value.id = 'hidden-input'
+            hidden_value.setAttribute('type', 'hidden')
+            $('.check-input').append(hidden_value)
+            
+            // 创建 validate input value
+            $('.check-input .box').append('<input id="validate-input"></input>')
+
+            // 创建 提交 button
+            $('.check-input .box').append('<button id="validate_submit">提交</button>')
+
+            $('.check-input .state').append('<span id="success_msg" style="color: green; display: none;">验证成功，5s后自动刷新页面....</span>')
+            $('.check-input .state').append('<span id="error_msg" style="color: red; display: none;">验证码错误</span>')
+        }
+    </script>
+</body>
+</html>
+<!-- event_id: ce9e338c8891416faa881b805907991e -->

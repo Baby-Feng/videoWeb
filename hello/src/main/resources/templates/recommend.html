@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+
+<script>
+    function refresh() {
+        var form = document.getElementById("tid")
+        form.submit()
+    }
+
+</script>
+</head>
+<body>
+<h2>推荐结果</h2>
+<form id="tid" action="/recommend">
+    <input type="text" name="tidList" th:value="${tidList}">
+    <input type="hidden" name="username" value="123456">
+</form>
+<table>
+    <a onclick="refresh()">刷新</a>
+    <tr th:each="resource:${resourceList}">
+        <input type="hidden" th:id="${resource.tid}"/>
+        <td><a th:href="${resource.url}" th:text="${resource.title}"></a></td>
+        <td th:text="${resource.author}"></td>
+        <td th:text="${resource.platform}"></td>
+        <td th:text="${resource.label}"></td>
+        <td th:text="${resource.type}"></td>
+    </tr>
+</table>
+</body>
+</html>

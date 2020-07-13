@@ -1,0 +1,44 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+.content .head {
+    width: 100%;
+    height: 50px;
+    clear: both;
+}
+.content .head .user {
+    float: right;
+    width: 100px;
+    height: 100%;
+    border: 1px solid #58585c;
+}
+
+.search{
+    margin:0 auto;
+    width: 60%;
+    height: 100px;
+}
+.search .input{
+    padding: 40px 0;
+}
+
+.first{
+    margin:10px auto;
+    width: 1065px;
+}
+
+.first .layui-elem-quote{
+    margin:3% 0 3% 0;
+    height: 300px;
+}
+
+.first .layui-elem-quote .recommend-header{
+    height: 50px;
+    padding-left: 2%;
+}
+
+.first .layui-elem-quote .name no-link{
+    color: #009688;
+    font-size:14px;
+}

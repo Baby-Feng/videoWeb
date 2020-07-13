@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <link rel="stylesheet" href="../css/index.css">
+    <script src="../layui/layui.js"></script>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/search.js"></script>
+
+    <script src="../js/public_function.js"></script>
+    <base href="/">
+    <title>跨平台学习资源整合</title>
+</head>
+
+<body>
+
+<div class="top">
+    <ul class="layui-nav layui-bg-cyan">
+        <li class="layui-nav-item layui-this"><a href="javascript:void(0);" onclick="index()">首页</a></li>
+        <li class="layui-nav-item">
+            <a href="javascript:;">分类</a>
+            <dl class="layui-nav-child" style="width: max-content;color: #2E2D3C">
+                <dd style="overflow: auto">
+                    <span style="width: max-content;float: left;padding-left: 10px">编程语言</span>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">python</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">java</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">c</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">c++</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">php</a>
+                </dd>
+                <dd style="overflow: auto">
+                    <span style="width: max-content;float: left;padding-left: 10px">数据科学</span>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">数据挖掘</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">数据分析</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">区块链</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">大数据</a>
+                </dd>
+                <dd style="overflow: auto">
+                    <span style="width: max-content;float: left;padding-left: 10px">人工智能</span>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">神经网络</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">自然语言处理</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">tensorflow</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">pytorch</a>
+                </dd>
+                <dd style="overflow: auto">
+                    <span style="width: max-content;float: left;padding-left: 10px">办公软件</span>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">word</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">excel</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">ppt</a>
+                </dd>
+                <dd style="overflow: auto">
+                    <span style="width: max-content;float: left;padding-left: 10px">应用开发</span>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">android</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">ios</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">unity3D</a>
+                </dd>
+                <dd style="overflow: auto">
+                    <span style="width: max-content;float: left;padding-left: 10px">职业考试</span>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">考研</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">计算机二级</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">软考</a>
+                    <a href="javascript:void(0);" onclick="classNameSearch(this)" style="float: left">思科/华为认证</a>
+                </dd>
+            </dl>
+        </li>
+
+    </ul>
+    <ul class="layui-nav layui-layout-right" id="personInfo" style="background: #2F4056">
+        <li class="layui-nav-item" id="login-model" ><a href="/login">登录</a></li>
+        <li class="layui-nav-item" id="register-model"><a href="javascript:void(0);" onclick="pageJump('register_1')">注册</a></li>
+        <li class="layui-nav-item" id="userInfo">
+            <!-- 右上角的用户 -->
+            <a href="javascript:;">
+                <img src="http://t.cn/RCzsdCq" class="layui-nav-img" id="userInfo-username"></a>
+            <dl class="layui-nav-child">
+                <dd><a href="javascript:void(0);" onclick="personPage()">用户管理</a></dd>
+                <dd><a href="javascript:void(0);" onclick="exit(this)">退出登录</a></dd>
+            </dl>
+        </li>
+        <script>
+            var loginDom = document.getElementById("login-model");
+            var registerDom = document.getElementById("register-model");
+            var userInfoDom = document.getElementById("userInfo");
+            var username = getContent("username");
+            if(username==null ||username.length==0){
+                userInfoDom.innerHTML="";
+            }else{
+                loginDom.innerHTML = "";
+                registerDom.innerHTML = "";
+            }
+        </script>
+    </ul>
+</div>
+    <div class="search">
+        <!-- 搜索框-->
+        <div class="input">
+            <!-- 输入框-->
+            <form action="/search" id="search">
+                <input id="searchInput" type="text" name="search" required  lay-verify="required" value="" placeholder="请输入关键词" autocomplete="off" class="layui-input">
+            </form>
+        </div>
+        <div class="s-button">
+            <!-- 搜索按钮-->
+            <button class="layui-btn" type="button" onclick="search()">
+                <i class="layui-icon layui-icon-search"></i>
+            </button>
+        </div>
+    </div>
+    <!--广告栏-->
+    <div class="layui-carousel" style="margin: 20px auto" id="test10">
+        <div carousel-item="">
+            <div><a href="javascript:void(0);"><img src="../image/advertisement/adv_1.jpg" width="100%" height="100%"></a></div>
+            <div><a href="javascript:void(0);"><img src="../image/advertisement/adv_2.jpg" width="100%" height="100%"></a></div>
+            <div><a href="javascript:void(0);"><img src="../image/advertisement/adv_3.jpg" width="100%" height="100%"></a></div>
+            <div><a href="javascript:void(0);"><img src="../image/advertisement/adv_4.jpg" width="100%" height="100%"></a></div>
+            <div><a href="javascript:void(0);"><img src="../image/advertisement/adv_5.jpg" width="100%" height="100%"></a></div>
+        </div>
+    </div>
+    <div class="first" >
+        <blockquote class="layui-elem-quote" style="overflow: auto;width: 100%" th:if="${resourceList!=null}">
+            <!-- 为您推荐栏 -->
+            <div class="recommend-header">
+                <!-- 推荐头部 -->
+                <i class="layui-icon layui-icon-heart-fill "></i>
+                <a target="_blank" class="name no-link" style="color:#009688;font-size:20px;">为您推荐</a>
+            </div>
+            <ul class="content-list" th:each="resource:${resourceList}">
+                <!-- 推荐内容列表 -->
+                <li class="content-one" style="float: left">
+                    <!-- 推荐单个资源 -->
+                    <!-- 下面是链接 -->
+                    <a href="javascript:void(0);" onclick="postToPage(this)" th:value="${resource.tid}+'-'+${resource.url}" class="img-anchor">
+                        <!-- 下面是图片 -->
+                        <div class="content-img">
+                            <img alt th:src="'../image/resource/'+${resource.tid}+'.png'">
+                        </div>
+                    </a>
+                    <div class="name">
+                        <!-- 资源名字链接 -->
+                        <a href="javascript:void(0);" onclick="postToPage(this)" th:value="${resource.tid}+'-'+${resource.url}" th:text="${resource.title}" class="title">
+                        </a>
+                    </div>
+                    <div class="from">
+                        <span class="from-info" th:text="${resource.platform}"></span>
+                        <span class="form-author" th:text="${resource.author}"></span>
+                    </div>
+                </li>
+
+            </ul>
+        </blockquote>
+        <blockquote class="layui-elem-quote" style="overflow: auto;width: 100%" th:if="${satisfiedResourceList!=null}">
+            <!-- 优质推荐栏 -->
+            <div class="recommend-header">
+                <!-- 头部 -->
+                <i class="layui-icon layui-icon-fire "></i>
+                <a target="_blank" class="name no-link" style="color:#009688;font-size:20px;">优质推荐</a>
+            </div>
+            <ul class="content-list" th:each="satisfiedResource:${satisfiedResourceList}">
+                <!-- 推荐内容列表 -->
+                <li class="content-one" style="float: left">
+                    <!-- 推荐单个资源 -->
+                    <!-- 下面是链接 -->
+                    <a href="javascript:void(0);" onclick="postToPage(this)" th:value="${satisfiedResource.tid}+'-'+${satisfiedResource.url}" class="img-anchor">
+                        <!-- 下面是图片 -->
+                        <div class="content-img">
+                            <img alt th:src="'../image/resource/'+${satisfiedResource.tid}+'.png'">
+                        </div>
+                    </a>
+                    <div class="name">
+                        <!-- 资源名字链接 -->
+                        <a href="javascript:void(0);" onclick="postToPage(this)" th:value="${satisfiedResource.tid}+'-'+${satisfiedResource.url}" th:text="${satisfiedResource.title}" class="title">
+                        </a>
+                    </div>
+                    <div class="from">
+                        <span class="from-info" th:text="${satisfiedResource.platform}"></span>
+                        <span class="form-author" th:text="${satisfiedResource.author}"></span>
+
+                    </div>
+                </li>
+
+            </ul>
+        </blockquote>
+    </div>
+
+</div>
+<script>
+    //JavaScript代码区域
+    layui.use('element', function(){
+        var element = layui.element;
+
+    });
+    layui.use(['carousel', 'form'], function(){
+        var carousel = layui.carousel
+            ,form = layui.form;
+
+        //常规轮播
+        carousel.render({
+            elem: '#test1'
+            ,arrow: 'always'
+        });
+
+        //改变下时间间隔、动画类型、高度
+        carousel.render({
+            elem: '#test2'
+            ,interval: 1800
+            ,anim: 'fade'
+            ,height: '120px'
+        });
+
+        //设定各种参数
+        var ins3 = carousel.render({
+            elem: '#test3'
+        });
+        //图片轮播
+        carousel.render({
+            elem: '#test10'
+            ,width: '80%'
+            ,height: '350px'
+            ,interval: 5000
+        });
+
+        //事件
+        carousel.on('change(test4)', function(res){
+            console.log(res)
+        });
+
+        var $ = layui.$, active = {
+            set: function(othis){
+                var THIS = 'layui-bg-normal'
+                    ,key = othis.data('key')
+                    ,options = {};
+
+                othis.css('background-color', '#5FB878').siblings().removeAttr('style');
+                options[key] = othis.data('value');
+                ins3.reload(options);
+            }
+        };
+
+        //监听开关
+        form.on('switch(autoplay)', function(){
+            ins3.reload({
+                autoplay: this.checked
+            });
+        });
+
+        $('.demoSet').on('keyup', function(){
+            var value = this.value
+                ,options = {};
+            if(!/^\d+$/.test(value)) return;
+
+            options[this.name] = value;
+            ins3.reload(options);
+        });
+
+        //其它示例
+        $('.demoTest .layui-btn').on('click', function(){
+            var othis = $(this), type = othis.data('type');
+            active[type] ? active[type].call(this, othis) : '';
+        });
+    });
+</script>
+</body>
+</html>

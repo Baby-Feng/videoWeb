@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <link rel="stylesheet" href="css/index.css">
+    <script src="layui/layui.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/search.js"></script>
+
+    <script src="js/public_function.js"></script>
+    <base href="/">
+    <script>
+        function load() {
+            if(getContent("username")){
+                //存在
+                document.getElementById("username").setAttribute("value",getContent("username"));
+            }
+        }
+    </script>
+</head>
+<body onload="load()">
+<form action="/index" method="post">
+    <input name="username" id="username" value="">
+    <input type="submit" value="提交">
+</form>
+</body>
+</html>
